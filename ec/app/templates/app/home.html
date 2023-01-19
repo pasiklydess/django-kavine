@@ -2,6 +2,106 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 
+
+{% block banner_slider %}
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'app/images/banner/bg1.jpg' %}" class="d-block w-100" alt="banner image">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/bg2.jpg' %}" class="d-block w-100" alt="banner image">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/bg3.jpg' %}" class="d-block w-100" alt="banner image">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endblock banner_slider %}
+
+{% block information %}
+<div class="container">
+  <div class="row bg-success text-center p-5 text-white border-bottom shadow">
+    <h1>Welcome To Little Italy a Restaurant</h1>
+    <small class="fs-5">
+      Pizza is a dish of Italian origin consisting of a usually round, flat base of leavened wheat-based
+      dough topped with tomatoes, cheese, and often various other ingredients, which is then baked at a high
+      temperature, traditionally in a wood-fired oven. A small pizza is sometimes called a pizzetta.
+    </small>
+  </div>
+</div>
+{% endblock information %}
+
+
 {% block main-content %}
-    <h1>Sveiki atvyke</h1>
+  <div class="container">
+    <h2 class="text-center">Dairy Products</h2>
+    <br/><br/>
+    <div class="row container">
+        <div class="col-md-4 col-sm mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+          <div class="goodnesssec butermilk smbg">
+            <a href="#">
+              <div class="goodnessseccont text-center">
+                <img src="{%static 'app/images/product/pizza_catgr.png' %}" class="img-responsive center-block" alt="">
+                <p class=""mlkpro>Pizza</p>
+              </div>
+            </a>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="col-md-4 col-sm mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+          <div class="goodnesssec butermilk curdbgpro">
+            <a href="#">
+              <div class="goodnessseccont text-center">
+                <img src="{%static 'app/images/product/drinks_catgr.png' %}" class="img-responsive center-block" alt="">
+                <p class=""mlkpro>Drinks</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+          <div class="goodnesssec butermilk butermilk">
+            <a href="#">
+              <div class="goodnessseccont text-center">
+                <img src="{%static 'app/images/product/burgers_catgr.png' %}" class="img-responsive center-block" alt="">
+                <p class=""mlkpro>Burgers</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none;">
+          <div class="goodnesssec butermilk smbg">
+            <a href="#">
+              <div class="goodnessseccont text-center">
+                <img src="{%static 'app/images/product/pasta_catgr.png' %}" class="img-responsive center-block" alt="">
+                <p class=""mlkpro>Pasta</p>
+              </div>
+            </a>
+          </div>
+       </div>
+    </div>
+  </div>
+  <br/><br/>
+
 {% endblock main-content %}
