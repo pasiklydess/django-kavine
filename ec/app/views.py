@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from . models import Product
+from . forms import CustomerRegistrationForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -29,3 +31,17 @@ class ProductDetail(View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
         return render(request, "app/productdetail.html", locals())
+
+
+class CustomerRegistrationView(View):
+    def get(self, request):
+        form = CustomerRegistrationForm()
+        return render(request, "app/customer_registration.html", locals())
+    def post(self, request):
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Congratulations! User Register Succesfully")
+        else:
+            messages.warning(request, "Invalid Input Data")
+        return render(request, "app/customer_registration.html", locals())
