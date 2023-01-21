@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
-from . models import Product
-from . forms import CustomerRegistrationForm
+from .models import Product
+from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 
 
@@ -30,7 +30,7 @@ class CategoryTitle(View):
 class ProductDetail(View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
-        return render(request, "app/productdetail.html", locals())
+        return render(request, "app/product_detail.html", locals())
 
 
 class CustomerRegistrationView(View):
@@ -45,3 +45,11 @@ class CustomerRegistrationView(View):
         else:
             messages.warning(request, "Invalid Input Data")
         return render(request, "app/customer_registration.html", locals())
+
+
+class ProfileView(View):
+    def get(self, request):
+        form = CustomerProfileForm()
+        return render(request, 'app/profile.html', locals())
+    def post(self, request):
+        return render(request, 'app/profile.html', locals())
