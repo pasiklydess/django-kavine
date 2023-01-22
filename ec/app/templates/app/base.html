@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 {% load static %}
 <html lang="en">
 <head>
@@ -27,7 +27,8 @@
         <a class="navbar-brand" href="#">
             <img src="{% static 'app/images/pizza.png' %}" width="80" height="80">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -64,12 +65,12 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown"
-                 role="button" data-bs-target="dropdown" aria-expanded="false">Erikas</a>
+                 role="button" data-bs-target="dropdown" aria-expanded="false">Slapyvardis</a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                   <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                   <li><a class="dropdown-item" href="#">Orders</a></li>
                   <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
-                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
             </li>
             <li class="nav-item mx-2">
@@ -114,3 +115,4 @@
 
 </body>
 </html>
+

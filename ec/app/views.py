@@ -7,13 +7,16 @@ from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    return render(request,"app/home.html")
+    return render(request, "app/home.html")
+
 
 def about(request):
-    return render(request,"app/about.html")
+    return render(request, "app/about.html")
+
 
 def contact(request):
-    return render(request,"app/contact.html")
+    return render(request, "app/contact.html")
+
 
 class CategoryView(View):
     def get(self, request, val):
@@ -21,11 +24,13 @@ class CategoryView(View):
         title = Product.objects.filter(category=val).values('title')
         return render(request, "app/category.html", locals())
 
+
 class CategoryTitle(View):
     def get(self, request, val):
-        product = Product.objects.filter(category=val)
+        product = Product.objects.filter(title=val)
         title = Product.objects.filter(category=product[0].category).values('title')
         return render(request, "app/category.html", locals())
+
 
 class ProductDetail(View):
     def get(self, request, pk):
@@ -41,7 +46,7 @@ class CustomerRegistrationView(View):
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,"Congratulations! User Register Succesfully")
+            messages.success(request, "Congratulations! User Register Succesfully")
         else:
             messages.warning(request, "Invalid Input Data")
         return render(request, "app/customer_registration.html", locals())
@@ -51,6 +56,7 @@ class ProfileView(View):
     def get(self, request):
         form = CustomerProfileForm()
         return render(request, 'app/profile.html', locals())
+
     def post(self, request):
         form = CustomerProfileForm(request.POST)
         if form.is_valid():
@@ -73,24 +79,24 @@ class ProfileView(View):
         return render(request, 'app/address.html', locals())
 
 
-    class updateAddress(View):
-        def get(self, request, pk):
+class updateAddress(View):
+    def get(self, request, pk):
+        add = Customer.objects.get(pk=pk)
+        form = CustomerProfileForm(instance=add)
+        return render(request, 'app/updateAddress.html', locals())
+
+    def post(self, request, pk):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
             add = Customer.objects.get(pk=pk)
-            form = CustomerProfileForm(instance=add)
-            return render(request, 'app/updateAddress.html', locals())
-        def post(self, request, pk):
-            form = CustomerProfileForm(request.POST)
-            if form.is_valid():
-                add = Customer.objects.get(pk=pk)
-                add.name = form.cleaned_data['name']
-                add.mobile = form.cleaned_data['mobile']
-                add.locality = form.cleaned_data['locality']
-                add.zipcode = form.cleaned_data['zipcode']
-                add.city = form.cleaned_data['city']
-                add.save()
+            add.name = form.cleaned_data['name']
+            add.mobile = form.cleaned_data['mobile']
+            add.locality = form.cleaned_data['locality']
+            add.zipcode = form.cleaned_data['zipcode']
+            add.city = form.cleaned_data['city']
+            add.save()
 
-                messages.success(request, "Congratulations! Profile Save Successfully")
-            else:
-                messages.warning(request, "Invalid Input Data")
-            return redirect("address")
-
+            messages.success(request, "Congratulations! Profile Save Successfully")
+        else:
+            messages.warning(request, "Invalid Input Data")
+        return redirect("address")

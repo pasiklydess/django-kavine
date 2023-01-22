@@ -14,7 +14,7 @@ urlpatterns = [
     path("category-title/<val>", views.CategoryTitle.as_view(), name="category-title"),
     path("product-detail/<int:pk>", views.ProductDetail.as_view(), name="product-detail"),
     path('profile/', views.ProfileView.as_view(), name='profile'),
-    path('address/', views.address, name='address'),
+    # path('address/', views.address, name='address'),
     path('updateAddress/<int:pk>', views.updateAddress.as_view(), name='updateAddress'),
 
     #login authentication
@@ -27,5 +27,6 @@ urlpatterns = [
         form_class=MyPasswordChangeForm, success_url='/password_change_done'), name='password_change'),
     path('password_change_done/', auth_view.PasswordChangeDoneView.as_view(
         template_name='app/password_change_done.html'), name='password_change_done'),
+    path('logout/', auth_view.LogoutView.as_view(next_page='login'), name='logout')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
