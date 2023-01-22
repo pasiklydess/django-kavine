@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from .models import Product
+from .models import Product, Customer
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 
@@ -52,4 +52,30 @@ class ProfileView(View):
         form = CustomerProfileForm()
         return render(request, 'app/profile.html', locals())
     def post(self, request):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            name = form.cleaned_data['name']
+            mobile = form.cleaned_data['mobile']
+            locality = form.cleaned_data['locality']
+            zipcode = form.cleaned_data['zipcode']
+            city = form.cleaned_data['city']
+
+            reg = Customer(user=user, name=name, mobile=mobile, locality=locality, zipcode=zipcode, city=city)
+            reg.save()
+            messages.success(request, "Congratulations! Profile Save Successfully")
+        else:
+            messages.warning(request, "Invalid Input Data")
         return render(request, 'app/profile.html', locals())
+
+    def address(request):
+        add = Customer.objects.filter(user=request.user)
+        return render(request, 'app/address.html', locals())
+
+
+    class updateAddress(View):
+        def get(self, request, pk):
+            form = CustomerProfileForm()
+            return render(request, 'app/updateAddress.html', locals())
+        def post(self, request, pk):
+            pass
