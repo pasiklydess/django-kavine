@@ -1,6 +1,6 @@
 {% extends "app/base.html" %}
 {% load static %}
-{% block title %}Category{% endblock title %}
+{% block title %}Product detail{% endblock title %}
 
 {% block main-content %}
     <div class="container">
@@ -14,11 +14,11 @@
                 <h5>Eur.{{product.discounted_price}}/-</h5>
                 <small class="text-decoration-line-through text-muted fs-6"><del>Eur.{{product.selling_price}}/-</del></small>
                 <br><br><h4>Product Features</h4>
-                <ul class="fs-5" style="font-family: Rajdhani;">
+                <ul class="fs-5" style="font-family">
                     <li>{{product.description}}</li>
                 </ul>
                 <form action="/add-to-cart" class="d-inline">
-                    <input type="hidden" name="prod_id" value={{product.id}} />
+                    <input type="hidden" name="prod_id" value={{product.id}}>
                     <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
                 </form>
                 <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Buy Now</a>
