@@ -171,6 +171,36 @@ class updateAddress(View):
         return redirect("address")
 
 
+# def add_to_cart(request):
+#     user = request.user
+#     product_id = request.GET.get('prod_id')
+#     if Cart.objects.filter(product=product_id).exists():
+#         prod_id = request.GET['prod_id']
+#         c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+#         c.quantity += 1
+#         c.save()
+#         user = request.user
+#         cart = Cart.objects.filter(user=user)
+#         amount = 0
+#         for p in cart:
+#             value = p.quantity * p.product.discounted_price
+#             amount = amount + value
+#         totalamount = amount + 3.50
+#         print(prod_id)
+#         data = {
+#             'quantity': c.quantity,
+#             'amount': amount,
+#             'totalamount': totalamount
+#         }
+#         return redirect('/cart')
+#     else:
+#         pass
+#         product = Product.objects.get(id=product_id)
+#         Cart(user=user, product=product).save()
+#         return redirect('/cart')
+
+
+
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
@@ -192,12 +222,14 @@ def add_to_cart(request):
             'amount': amount,
             'totalamount': totalamount
         }
-        return redirect('/cart')
+        return redirect('/product-detail/' + product_id)
     else:
         pass
         product = Product.objects.get(id=product_id)
         Cart(user=user, product=product).save()
-        return redirect('/cart')
+        return redirect('/product-detail/' + product_id)
+
+
 
 
 def show_cart(request):
@@ -292,25 +324,53 @@ def plus_cart(request):
         return JsonResponse(data)
 
 
+# def minus_cart(request):
+#     if request.method == 'GET':
+#         prod_id = request.GET['prod_id']
+#         c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+#         c.quantity -= 1
+#         c.save()
+#         user = request.user
+#         cart = Cart.objects.filter(user=user)
+#         amount = 0
+#         for p in cart:
+#             value = p.quantity * p.product.discounted_price
+#             amount = amount + value
+#         totalamount = amount + 3.50
+#         data = {
+#             'quantity': c.quantity,
+#             'amount': amount,
+#             'totalamount': totalamount
+#         }
+#         return JsonResponse(data)
+
+
+
 def minus_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
-        c.quantity -= 1
-        c.save()
+        if c.quantity > 1:
+            c.quantity -= 1
+            c.save()
+        else:
+            pass
         user = request.user
         cart = Cart.objects.filter(user=user)
         amount = 0
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 3.50
-        data = {
-            'quantity': c.quantity,
-            'amount': amount,
-            'totalamount': totalamount
-        }
-        return JsonResponse(data)
+            totalamount = amount + 3.50
+            data = {
+                'quantity': c.quantity,
+                'amount': amount,
+                'totalamount': totalamount
+                }
+            return JsonResponse(data)
+
+
+
 
 
 def remove_cart(request):
