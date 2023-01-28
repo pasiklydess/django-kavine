@@ -85,8 +85,9 @@ $('.plus-wishlist').click(function(){
         },
         success:function(data){
             //alert(data.message)
-//            window.location.href = 'http://localhost:8019/product-detail/${id}'
-            window.location.href = 'http://localhost:8019/product-detail/' + id;
+//            window.location.href = 'http://localhost:8019/product-detail/${id}' neveikia
+//            window.location.href = 'http://localhost:8019/product-detail/' + id; veikia tik reikia keisti serveri
+            window.location.href = '/product-detail/' + id;
         }
     })
 })
@@ -102,7 +103,8 @@ $('.minus-wishlist').click(function(){
         },
         success:function(data){
 //            window.location.href = 'http://localhost:8019/product-detail/${id}'
-            window.location.href = 'http://localhost:8019/product-detail/' + id;
+//            window.location.href = 'http://localhost:8019/product-detail/' + id;
+            window.location.href = '/product-detail/' + id;
         }
     })
 })
