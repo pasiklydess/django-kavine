@@ -13,6 +13,8 @@ CATEGORY_CHOICES = (
 
 
 class Product(models.Model):
+    """ tai modelis, kuris aprašo produktus, kuriuos siūlo mūsų restoranas. Jame yra laukai: pavadinimas,
+    pardavimo kaina, nuolaidos kaina (jei yra), aprašymas, sudėtis, kategorija ir produkto paveikslėlis."""
     title = models.CharField(max_length=100)
     selling_price = models.FloatField()
     discounted_price = models.FloatField(null=True)
@@ -26,6 +28,8 @@ class Product(models.Model):
 
 
 class Customer(models.Model):
+    """ tai modelis, kuris aprašo mūsų restorano klientus. Jame yra laukai: vartotojas, vardas,
+     mobilusis telefonas, vietovė, pašto kodas ir miestas."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     mobile = models.IntegerField(default=+3706)
@@ -38,6 +42,8 @@ class Customer(models.Model):
 
 
 class Cart(models.Model):
+    """ tai modelis, kuris aprašo produktus, kuriuos vartotojas pasirinko pirkti. Jame yra laukai: vartotojas,
+     produktas, kiekis ir bendra suma."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
@@ -58,6 +64,8 @@ STATUS_CHOICES = (
 
 
 class Payment(models.Model):
+    """tai modelis, kuris aprašo mokėjimus, kuriuos vartotojas atliko. Jame yra laukai: vartotojas, suma,
+     užsakymo ID, mokėjimo būsena, mokėjimo ID ir ar mokėjimas buvo atliktas."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.FloatField()
     pay_order_id = models.CharField(max_length=100, blank=True, null=True)
@@ -67,6 +75,8 @@ class Payment(models.Model):
 
 
 class OrderPlaced(models.Model):
+    """ tai modelis, kuris aprašo užsakymus, kuriuos vartotojas padarė. Jame yra laukai: vartotojas,
+    klientas, produktas, kiekis, užsakymo data, būsena ir mokėjimas."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -82,5 +92,7 @@ class OrderPlaced(models.Model):
 
 
 class Wishlist(models.Model):
+    """tai modelis, kuris aprašo produktus, kuriuos vartotojas nori pirkti ateityje.
+    Jame yra laukai: vartotojas ir produktas."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

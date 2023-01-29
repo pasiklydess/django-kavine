@@ -1,3 +1,12 @@
+
+.dairy-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px;
+    justify-content: center;
+}
+
+
 .owl-carousel .item{
  /* border: 1px solid black; */
  font-size: 24px;
@@ -90,3 +99,8 @@ border-color: red;
 .goodnesssec a{
     text-decoration: none;
 }
+
+
+
+
+
