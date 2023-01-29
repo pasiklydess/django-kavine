@@ -50,12 +50,12 @@
                 </div>
                 {% endfor %}
                 <div class="form-check mb-1">
+                    <input type="number" class="form-control" name="totamount" id="totamount" value={{totalamount}} readonly>
                     <label for="totamount" class="form-label">Total Amount</label>
-                    <input type="number" class="form-control" name="totamount" value={{totalamount}} readonly>
                 </div>
                 <div>
 <!--                 <button type="submit" class="btn btn-warning mt-2 px-5 fw-bold">Continue</button>-->
-                    <div id="paypal-button-containe"></div>
+<!--                    <div id="paypal-button-containe"></div>-->
                     <button id="paypal-button-containe" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Payment</button>
 <!--                <button id="rzp-button1" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Payment</button>-->
                 </div>
@@ -66,11 +66,10 @@
 
 {% endblock main-content %}
 
+
 {% block payment-gateway %}
 
-<!--<script src="https://www.paypal.com/sdk/js?&client-id=<Client-ID>&merchant-id=<Merchant-ID>&currency=EUR"></script>-->
-<script src="https://www.paypal.com/sdk/js?&client-id=<AfPMuXnXNhnIdVwaQ2Gx_quGOe7Irrytw7MJRlAXETDwdKxe1KtDOp5eWpJC3GTPxEwLIQouUFXy2_XF>
-&merchant-id=<CHEPSYFTRZ6PG>&currency=EUR"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AfPMuXnXNhnIdVwaQ2Gx_quGOe7Irrytw7MJRlAXETDwdKxe1KtDOp5eWpJC3GTPxEwLIQouUFXy2_XF&merchant-id=CHEPSYFTRZ6PG&currency=EUR"></script>
 <script>
   paypal.Buttons({
 
@@ -103,5 +102,48 @@
   }).render('#paypal-button-container');
 
 </script>
-
 {% endblock payment-gateway %}
+
+
+{% block scripts %}
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    paypal.Button.render({
+        // Configure environment
+        env: 'sandbox',
+        client: {
+            sandbox: 'demo_sandbox_client_id',
+        },
+        // Customize button (optional)
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'blue',
+            shape: 'pill',
+        },
+        // Enable Pay Now checkout flow (optional)
+        commit: true,
+        // Set up a payment
+        payment: function (data, actions) {
+            return actions.payment.create({
+                transactions: [{
+                    amount: {
+                        total: '{{totalamount}}',
+                        currency: 'USD'
+                    }
+                }]
+            });
+        },
+        // Execute the payment
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute().then(function () {
+                // Show a confirmation message to the buyer
+                window.alert('Thank you for your purchase!');
+                // Redirect to the payment success page
+                window.location = '/success/';
+            });
+        }
+    }, '#paypal-button-container');
+</script>
+{% endblock scripts %}

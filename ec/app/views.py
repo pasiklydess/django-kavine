@@ -26,6 +26,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
+
 # Create your views here.
 @login_required
 def home(request):
@@ -289,7 +290,6 @@ def show_cart(request):
     for p in cart:
         value = p.quantity * p.product.discounted_price
         amount = amount + value
-    # totalamount = amount + 3.50
     totalamount = round(amount + 3.50, 2)
     totalitem = 0
     wishitem = 0
@@ -336,7 +336,6 @@ class checkout(View):
         for p in cart_items:
             value = p.quantity * p.product.discounted_price
             famount = famount + value
-        # totalamount = famount + 3.50
         totalamount = round(famount + 3.50, 2)
         return render(request, 'app/checkout.html', locals())
 
@@ -397,7 +396,6 @@ def plus_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        # totalamount = amount + 3.50
         totalamount = round(amount + 3.50, 2)
         data = {
             'quantity': c.quantity,
@@ -428,7 +426,6 @@ def minus_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-            # totalamount = amount + 3.50
             totalamount = round(amount + 3.50, 2)
             data = {
                 'quantity': c.quantity,
@@ -453,7 +450,6 @@ def remove_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        # totalamount = amount + 3.50
         totalamount = round(amount + 3.50, 2)
         data = {
             'quantity': c.quantity,
